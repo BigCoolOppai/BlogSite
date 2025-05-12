@@ -51,8 +51,8 @@ class TagController extends Controller
      */
     public function edit(string $id)
     {
-        $tags = Tag::find($id);
-        return view('admin.tags.edit', compact('Tag'));
+        $tag = Tag::find($id);
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -63,9 +63,9 @@ class TagController extends Controller
         $request->validate([
             'title' => 'required',
         ]);
-        $tags = Tag::find($id);
-        $tags->slug = null;
-        $tags->update($request->all());
+        $tag = Tag::find($id);
+        $tag->slug = null;
+        $tag->update($request->all());
         return redirect()->route('tags.index')->with('success', 'ИЗМЕНЕНИЯ СОХРАНЕНЫ');
     }
 
@@ -74,9 +74,9 @@ class TagController extends Controller
      */
     public function destroy(string $id)
     {
-        $tags = Tag::find($id);
-        $tags->delete();
+        $tag = Tag::find($id);
+        $tag->delete();
         Tag::destroy($id);
-        return redirect()->route('tags.index')->with('success', 'Категория удалена');
+        return redirect()->route('tags.index')->with('success', 'Тэг удален');
     }
 }
