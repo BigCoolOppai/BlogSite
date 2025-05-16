@@ -1,5 +1,4 @@
 @extends('admin.layouts.layout')
-@extends('admin.layouts.layout')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -42,6 +41,7 @@
                                                 <th>Наименование</th>
                                                 <th>Категория</th>
                                                 <th>Теги</th>
+                                                <th>Изображение</th>
                                                 <th>Дата</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -53,6 +53,13 @@
                                                     <td>{{ $post->title }}</td>
                                                     <td>{{ $post->category->title }}</td>
                                                     <td>{{ $post->tags->pluck('title')->join(', ')}}</td>
+                                                    <td>
+                                                        @if($post->thumbnail)
+                                                            <img src="{{ $post->getImage() }}" alt="{{ $post->title }}" style="width: 100px; height: auto; border-radius: 5px;">
+                                                        @else
+                                                            Нет изображения
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $post->created_at }}</td>
                                                     <td>
                                                         <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-info btn-sm float-left mr-1">

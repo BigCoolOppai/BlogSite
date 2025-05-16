@@ -37,19 +37,28 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'content' => 'required',
-            'category_id' => 'required|integer',
-            'thumbnail' => 'nullable|image',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'content' => 'required|string',
+            'category_id' => 'required|integer|exists:categories,id',
+            'thumbnail' => 'nullable|image|max:2048',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id',
             
         ]);
         $data = $request->all();
         
         $data['thumbnail'] = Post::uploadImage($request);
 
+        if ($request->hasFile('thumbnail')) {
+            $data['thumbnail'] = Post::uploadImage($request);
+        } else {
+            //$data['thumbnail'] = 'path/to/default.jpg';
+        }
         $post = Post::create($data);
-        $post->tags()->sync($request->tags);
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
         return redirect()->route('posts.index')->with('success', 'Статья добавлена');
     }
 
@@ -66,8 +75,10 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        $tag = Tag::find($id);
-        return view('admin.posts.edit');
+        $post = Post::findOrFail($id);
+        $categories = Category::pluck('title', 'id')->all();
+        $tags = Tag::pluck('title', 'id')->all();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags')); 
     }
 
     /**
@@ -75,20 +86,29 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $post = Post::findOrFail($id);
         $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'content' => 'required',
-            'category_id' => 'required|integer',
-            'thumbnail' => 'required|image',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'content' => 'required|string',
+            'category_id' => 'required|integer|exists:categories,id',
+            'thumbnail' => 'nullable|image|max:2048',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id',
         ]);
-        $post = Post::find($id);
         $data = $request->all();
-        $data['thumbnail'] = Post::updoadImage($request, $post->thumbnail);
-
+        if ($request->hasFile('thumbnail')) {
+            $data['thumbnail'] = Post::uploadImage($request, $post->thumbnail);
+        } else {
+            $data['thumbnail'] = $post->thumbnail;
+        }
         $post->update($data);
-        $post->tags()->sync($request->tags);
-       
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        } else {
+            $post->tags()->sync([]);
+        }
+
         return redirect()->route('posts.index')->with('success', 'ИЗМЕНЕНИЯ СОХРАНЕНЫ');
     }
 
@@ -97,9 +117,12 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->tags()->sync([]);
-        Storage::delete($post->thumbnail);
+        if ($post->thumbnail) {
+            Storage::delete($post->thumbnail);
+        }
+
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Статья удалена');
     }

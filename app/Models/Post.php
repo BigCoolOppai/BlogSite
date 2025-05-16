@@ -25,25 +25,25 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public static function uploadImage(Request $request, $image = null) 
-    {
-        if ($request->hasFile('thumbnail')){
-            if ($image) {
-                Storage::delete($image);
-            }
-            $folder = date('Y-m-d');
-            return $request->file('thumbnail')->store("images/{$folder}");
+   public static function uploadImage(Request $request, $currentImage = null)
+{
+    if ($request->hasFile('thumbnail')) {
+        if ($currentImage) {
+            Storage::delete($currentImage);
         }
-        return null;
+        $folder = date('Y-m-d');
+        return $request->file('thumbnail')->store("images/{$folder}");
     }
+    return $currentImage;
+}
 
-    public function getImage()
-    {
-        if (!$this->thumnail) {
-            return asset("no-image.png");
-        }
+public function getImage()
+{
+    if ($this->thumbnail) {
         return asset("uploads/{$this->thumbnail}");
     }
+     return asset("no-image.png");
+}
 
     public function sluggable(): array
     {

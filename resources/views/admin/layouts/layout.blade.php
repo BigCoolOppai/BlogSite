@@ -8,9 +8,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -187,107 +189,114 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
             <a href="{{route('admin.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Главная</p>
             </a>
-        
-          </li>  
-          <li class="nav-item">
+        </li>
+        <li class="nav-item has-treeview">
             <a href="{{route('categories.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Категории
-                <i class="right fas fa-angle-left"></i>
-              </p>
+                <i class="nav-icon fas fa-th-list"></i>
+                <p>
+                    Категории
+                    <i class="right fas fa-angle-left"></i>
+                </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('categories.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Список категорий</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('categories.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Новая категория</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="{{route('categories.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Список категорий</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('categories.create')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Новая категория</p>
+                    </a>
+                </li>
             </ul>
-          </li>
-          <li class="nav-item">
+        </li>
+        <li class="nav-item has-treeview">
             <a href="{{route('tags.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Теги
-                <i class="right fas fa-angle-left"></i>
-              </p>
+                <i class="nav-icon fas fa-tags"></i>
+                <p>
+                    Теги
+                    <i class="right fas fa-angle-left"></i>
+                </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('tags.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Список тегов</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('tags.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Новый тег</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="{{route('tags.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Список тегов</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('tags.create')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Новый тег</p>
+                    </a>
+                </li>
             </ul>
-          </li>
-          <li class="nav-item">
+        </li>
+        <li class="nav-item has-treeview">
             <a href="{{route('posts.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Статьи
-                <i class="right fas fa-angle-left"></i>
-              </p>
+                <i class="nav-icon fas fa-newspaper"></i>
+                <p>
+                    Статьи
+                    <i class="right fas fa-angle-left"></i>
+                </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('posts.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Список статей</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('posts.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Новая статья</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../../index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="{{route('posts.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Список статей</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('posts.create')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Новая статья</p>
+                    </a>
+                </li>
             </ul>
-          </li>
-          
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
+        </li>
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Dashboard
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="../../index.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Dashboard v1</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../../index2.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Dashboard v2</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../../index3.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Dashboard v3</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
@@ -312,12 +321,10 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../../dist/js/demo.js"></script>
+<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 </body>
 </html>

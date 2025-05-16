@@ -100,8 +100,6 @@
                                 <select name="tags[]" id="tags" class="select2 @error('tags') is-invalid @enderror"
                                         multiple="multiple" data-placeholder="Выбор тегов" style="width: 100%;">
                                     @php
-                                        // Ensure $post->tags is a collection, pluck IDs, then convert to array
-                                        // For 'old' input, expect an array of IDs
                                         $selectedTags = old('tags', $post->tags ? $post->tags->pluck('id')->toArray() : []);
                                     @endphp
                                     @foreach($tags as $k => $v)
@@ -110,8 +108,8 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('tags') {{-- Or tags.* for array validation --}}
-                                    <span class="invalid-feedback d-block" role="alert"> {{-- d-block for select2 potentially --}}
+                                @error('tags') 
+                                    <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -127,7 +125,7 @@
                                     <label class="custom-file-label" for="thumbnail">Выберите файл</label>
                                 </div>
                                 @error('thumbnail')
-                                    <span class="invalid-feedback d-block" role="alert"> {{-- d-block to ensure visibility --}}
+                                    <span class="invalid-feedback d-block" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
